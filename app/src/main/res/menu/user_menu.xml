@@ -13,5 +13,13 @@
         android:id="@+id/add_item"
         android:title="@string/menu_add"
         android:icon="@drawable/ic_outline_add_box_24"/>
+    <item
+        android:id="@+id/add_test_data"
+        android:title="@string/test_data"
+        android:icon="@drawable/ic_outline_library_add_24"/>
+    <item
+        android:id="@+id/delete_items"
+        android:title="@string/delete_items"
+        android:icon="@drawable/ic_outline_delete_forever_24"/>
 
 </menu>

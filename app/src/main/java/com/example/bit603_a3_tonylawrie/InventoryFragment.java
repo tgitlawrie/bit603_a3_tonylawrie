@@ -4,9 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +19,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class InventoryFragment extends Fragment {
+  private static String TAG = "InventoryFragment";
+  public static final String fragmentID = "inventory";
 
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +65,13 @@ public class InventoryFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
+    List<Inventory> inventory = MainActivity.inventoryDb.inventoryDao().getInventory();
+    for (Inventory item: inventory) {
+      String name = item.getItem();
+      String type = item.getType();
+      String quantity = String.valueOf(item.getQuantity());
+      Log.d(TAG, name + " | " + type + ": " + quantity);
+    }
     // Inflate the layout for this fragment
     return inflater.inflate(R.layout.fragment_inventory, container, false);
   }

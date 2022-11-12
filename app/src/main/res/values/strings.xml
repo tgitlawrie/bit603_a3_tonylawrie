@@ -14,5 +14,13 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_inventory">Inventory</string>
     <string name="menu_add">Add Item</string>
+    <string name="test_data">Add Test Items</string>
+    <string name="delete_items">Delete all</string>
+    
+    <!--    inventory-->
+    <string name="th_item">Item</string>
+    <string name="th_type">Type</string>
+    <string name="th_quantity">Quantity</string>
+
 
 </resources>
