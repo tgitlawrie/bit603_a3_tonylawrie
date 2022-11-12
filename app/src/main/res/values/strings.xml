@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">bit603_a3_tonylawrie</string>
+
+    <string name="company_name">Kiwi Cakes and Cookies</string>
+
+    <!--    Login Main Activity-->
+    <string name="home_title">Login</string>
+    <string name="home_username">Username</string>
+    <string name="home_password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="login_desc">initiate login</string>
+
+    <!--    Menu items-->
+    <string name="menu_logout">Logout</string>
+    <string name="menu_inventory">Inventory</string>
+    <string name="menu_add">Add Item</string>
+
+</resources>
