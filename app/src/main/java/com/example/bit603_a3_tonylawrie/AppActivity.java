@@ -49,10 +49,25 @@ public class AppActivity extends AppCompatActivity {
           break;
         case R.id.add_test_data:
           addSampleData();
+          redrawFragment(InventoryFragment.fragmentID);
           break;
+          case R.id.delete_items:
+            //WARNING! Resets inventory database, for development testing only
+            MainActivity.inventoryDb.inventoryDao().resetInventory(); //TODO Confirm
+            replaceFragment(new InventoryFragment(), InventoryFragment.fragmentID);
+            break;
       }
       return true;
     });
+  }
+
+  private void redrawFragment(String ID) {
+    fragmentManager = getSupportFragmentManager();
+    Fragment currentFragment = fragmentManager.findFragmentByTag(ID);
+    fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.detach(currentFragment);
+    fragmentTransaction.attach(currentFragment);
+    fragmentTransaction.commit();
   }
 
   // method to add initial fragment

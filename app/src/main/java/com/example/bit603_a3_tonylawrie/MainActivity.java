@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     loginBtn.setOnClickListener(view -> {
 
-      //WARNING! Resets inventory database, for development testing only
-      inventoryDb.inventoryDao().resetInventory();
-
       // if standard user go to inventory
       startActivity(new Intent(getApplicationContext(),AppActivity.class));
       overridePendingTransition(0,0);

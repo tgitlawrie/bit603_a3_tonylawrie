@@ -55,7 +55,6 @@ public class InventoryFragment extends Fragment {
       String name = item.getItem();
       String type = item.getType();
       String quantity = String.valueOf(item.getQuantity());
-      Log.d(TAG, name + " | " + type + ": " + quantity);
     }
   }
 }
