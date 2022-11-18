@@ -24,6 +24,8 @@
     <string name="th_type">Type</string>
     <string name="th_quantity">Quantity</string>
     <string name="admin_menu">Admin</string>
+    <string name="inventory_title">Inventory</string>
+    <string name="empty_inventory">Inventory is empty</string>
 
 
 </resources>

@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,9 +32,12 @@ public class InventoryFragment extends Fragment {
   public static final String fragmentID = "inventory";
 
   BottomNavigationView inventoryNavigationView;
+  Button nextButton;
 
-  private int pageSize = 5;
-  private int page = 1;
+  TextView listText;
+
+  private int pageSize, page;
+  List<Inventory> inventory;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -50,17 +55,21 @@ public class InventoryFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     inventoryNavigationView = view.findViewById(R.id.inventoryNavigation);
+    nextButton = view.findViewById(R.id.next);
 
-    List<Inventory> inventory = MainActivity.inventoryDb.inventoryDao().getInventory();
-    List<Inventory> pagedList = new ArrayList<>();// list to store paged results
+    inventory = MainActivity.inventoryDb.inventoryDao().getInventory();
 
+    listText = view.findViewById(R.id.inventory_list);
+
+    pageSize = 5;
+    page = 1;
 
     //item selected listener
     inventoryNavigationView.setOnItemSelectedListener(item -> {
       switch (item.getItemId()) {
         case R.id.next:
-          pagedList.removeAll(inventory);
-          nextPage();
+          page++;
+          setItems();
           break;
         case R.id.add_item:
           break;
@@ -72,27 +81,49 @@ public class InventoryFragment extends Fragment {
           deleteData();
           break;
         case R.id.previous:
-          pagedList.removeAll(inventory);
-          prevPage();
+          page--;
+          setItems();
           break;
       }
       return true;
     });
 
-    // only call paginate if inventory has items
-    if (inventory.size() > 0) {
-      for (int i = page * pageSize -pageSize; i < pageSize * page; i++) {
-        pagedList.add(inventory.get(i));
+    //  if inventory is empty display message otherwise get 1st set of data
+    if(inventory.size() <= 0){
+      listText.setText(R.string.empty_inventory);
+    } else{
+      // call getItems() to get initial set of items
+      setItems();
+    }
+
+  }
+
+  // set 5 items at a time
+  private void setItems() {
+    listText.setText("");
+    String item, type, quantity, outString;
+
+    Log.d(TAG, "I: " + String.valueOf((page -1) * pageSize));
+    Log.d(TAG, "page" + page);
+    Log.d(TAG, "pagesize: " + pageSize);
+    Log.d(TAG, "condition: " + page * pageSize);
+
+    for(int i = (page -1) * pageSize; i < page * pageSize -1; i++){
+      if( i < inventory.size() && i >= 0){
+        Log.d(TAG, String.valueOf(i));
+        item = inventory.get(i).getItem();
+        type = inventory.get(i).getType();
+        quantity = String.valueOf(inventory.get(i).getQuantity());
+
+        outString = item + "\u0009" + type + "\u0009Quantity: " + quantity + "\r\n";
+        listText.append(outString);
+      }else{
+
       }
     }
 
-    RecyclerView recycler = view.findViewById(R.id.itemRecycler);
-    recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-    recycler.setHasFixedSize(true);
-    ItemAdapter itemAdapter = new ItemAdapter(getContext(), pagedList);
-    recycler.setAdapter(itemAdapter);
-    itemAdapter.notifyDataSetChanged();
   }
+
 
   private void deleteData() {
     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -140,12 +171,4 @@ public class InventoryFragment extends Fragment {
     confirmation.show();
   }
 
-  private void nextPage() {
-    page++;
-  }
-
-  private void prevPage() {
-    page--;
-
-  }
 }
