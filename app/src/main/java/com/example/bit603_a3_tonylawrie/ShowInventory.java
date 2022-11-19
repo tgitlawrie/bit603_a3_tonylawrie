@@ -65,8 +65,7 @@ public class ShowInventory extends AppCompatActivity {
       }
       return true;
     });
-
-    // call getItems() to get initial set of items
+    // call setItems() to get initial set of items
     setItems();
   }
 

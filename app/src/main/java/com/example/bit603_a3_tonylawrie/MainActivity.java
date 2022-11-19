@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    overridePendingTransition(0,0); // remove terrible animation on load
     if(getSupportActionBar() != null) {
       getSupportActionBar().hide(); //hide the action bar so it doesn't screw with layout
     }
