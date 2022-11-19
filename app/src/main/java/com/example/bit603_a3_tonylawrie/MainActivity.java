@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     loginBtn.setOnClickListener(view -> {
 
       // if standard user go to inventory
-      startActivity(new Intent(getApplicationContext(),AppActivity.class));
+      startActivity(new Intent(getApplicationContext(),ShowInventory.class));
       overridePendingTransition(0,0);
 
       //if admin go to admin menu

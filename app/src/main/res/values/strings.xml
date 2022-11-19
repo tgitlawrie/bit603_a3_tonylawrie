@@ -18,7 +18,7 @@
     <string name="delete_items">Delete all</string>
     <string name="previous">Previous</string>
     <string name="Next">Next</string>
-    
+
     <!--    inventory-->
     <string name="th_item">Item</string>
     <string name="th_type">Type</string>

@@ -6,10 +6,7 @@
         android:id="@+id/previous"
         android:title="@string/previous"
         android:icon="@drawable/ic_outline_arrow_back_ios_24"/>
-    <item
-        android:id="@+id/add_item"
-        android:title="@string/menu_add"
-        android:icon="@drawable/ic_outline_add_box_24"/>
+
     <item
         android:id="@+id/add_test_data"
         android:title="@string/test_data"
