@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,7 +24,7 @@ public class ShowInventory extends AppCompatActivity {
   Menu inventoryMenu;
   MenuItem previous, next;
   TextView listText, pageCount;
-  private int pageSize, page, lastpage;
+  private int pageSize, page, lastPage;
   List<Inventory> inventory;
 
   @Override
@@ -44,7 +46,7 @@ public class ShowInventory extends AppCompatActivity {
 
     pageSize = 5;
     page = 1;
-    lastpage = inventory.size() / pageSize;
+    lastPage = inventory.size() / pageSize;
 
     //initial call to update menu to set the disable options
     update();
@@ -53,8 +55,6 @@ public class ShowInventory extends AppCompatActivity {
       if(item.getItemId() == R.id.next) {
         page++;
         setItems();
-      } else if(item.getItemId() == R.id.add_item){
-        //TODO
       } else if(item.getItemId() == R.id.add_test_data){
         addSampleData();
       } else if(item.getItemId() == R.id.delete_items){
@@ -76,12 +76,10 @@ public class ShowInventory extends AppCompatActivity {
     } else {
       Log.d(TAG, "setItems: called");
       listText.setText("");
-      String item, type, quantity, outString;
-
-//    Log.d(TAG, "I: " + String.valueOf((page - 1) * pageSize));
-//    Log.d(TAG, "page" + page);
-//    Log.d(TAG, "pagesize: " + pageSize);
-//    Log.d(TAG, "condition: " + page * pageSize);
+      String item;
+      String type;
+      String quantity;
+      Spanned outString; //using Html.fromHtml to format the text nicely
 
       for (int i = (page - 1) * pageSize; i < page * pageSize - 1; i++) {
         if (i < inventory.size() && i >= 0) {
@@ -90,7 +88,7 @@ public class ShowInventory extends AppCompatActivity {
           type = inventory.get(i).getType();
           quantity = String.valueOf(inventory.get(i).getQuantity());
 
-          outString = item + "\u0009" + type + "\u0009Quantity: " + quantity + "\r\n";
+          outString = Html.fromHtml("<b>"+item + "</b><br>" + "" + type + "&emsp;Quantity: " + quantity + "<br><br>");
           listText.append(outString);
         }
       }
@@ -143,7 +141,7 @@ public class ShowInventory extends AppCompatActivity {
   }
 
   private void update() {
-    String pageText = page + "/" + lastpage;
+    String pageText = page + "/" + lastPage;
     pageCount.setText(pageText);
     if (inventory.size() <= 0) {
       listText.setText(R.string.empty_inventory);
@@ -151,7 +149,7 @@ public class ShowInventory extends AppCompatActivity {
     // if on first page set disable previous
     previous.setEnabled(page > 1);
     // if on last page disable next
-    next.setEnabled(page < lastpage);
+    next.setEnabled(page < lastPage);
   }
 
   private void refreshActivity() {
