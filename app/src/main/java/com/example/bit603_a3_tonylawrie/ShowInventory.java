@@ -1,5 +1,6 @@
 package com.example.bit603_a3_tonylawrie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,19 +17,22 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShowInventory extends AppCompatActivity {
-  private static final String TAG = "Inventory";
+  private static final String TAG = "inventory";
 
   BottomNavigationView inventoryNavigationView;
   Menu inventoryMenu;
   MenuItem previous, next;
-  TextView listText, pageCount;
-  private int pageSize, page, lastPage;
+  TextView listText, pageCount,itemCountText;
+  private int pageSize, page, itemCount;
+  private int lastPage;
   List<Inventory> inventory;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    overridePendingTransition(0,0);
     super.onCreate(savedInstanceState);
     if (getSupportActionBar() != null) {
       getSupportActionBar().hide(); //hide the action bar so it doesn't screw with layout
@@ -40,13 +44,25 @@ public class ShowInventory extends AppCompatActivity {
     inventory = MainActivity.inventoryDb.inventoryDao().getInventory();
 
     listText = findViewById(R.id.inventory_list);
+    itemCountText = findViewById(R.id.itemCountText);
     previous = inventoryMenu.findItem(R.id.previous);
     next = inventoryMenu.findItem(R.id.next);
     pageCount = findViewById(R.id.page_counter);
 
     pageSize = 5;
     page = 1;
-    lastPage = inventory.size() / pageSize;
+
+    // checks to see if an extra page is required to show additional items
+    if(inventory.size() % pageSize == 0){
+      lastPage = inventory.size() / pageSize;
+    }else{
+      lastPage = inventory.size() / pageSize +1;
+    }
+
+    itemCount = inventory.size();
+
+    String itemCountString = "Items: " + itemCount;
+    itemCountText.setText(itemCountString);
 
     //initial call to update menu to set the disable options
     update();
@@ -69,21 +85,26 @@ public class ShowInventory extends AppCompatActivity {
     setItems();
   }
 
+  @Override
+  public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
+    super.onPrepareOptionsMenu(menu);
+
+    return true;
+  }
+
   // set 5 items at a time
   private void setItems() {
     if (inventory.size() <= 0) {
       listText.setText(R.string.empty_inventory);
     } else {
-      Log.d(TAG, "setItems: called");
       listText.setText("");
       String item;
       String type;
       String quantity;
       Spanned outString; //using Html.fromHtml to format the text nicely
 
-      for (int i = (page - 1) * pageSize; i < page * pageSize - 1; i++) {
-        if (i < inventory.size() && i >= 0) {
-//        Log.d(TAG, String.valueOf(i));
+      for (int i = (page - 1) * pageSize; i < page * pageSize; i++) {
+        if (i < itemCount && i >= 0) {
           item = inventory.get(i).getItem();
           type = inventory.get(i).getType();
           quantity = String.valueOf(inventory.get(i).getQuantity());

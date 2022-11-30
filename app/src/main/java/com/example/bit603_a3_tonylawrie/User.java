@@ -15,6 +15,9 @@ public class User {
   @ColumnInfo(name = "UserName")
   private String username;
 
+  @ColumnInfo(name = "Password")
+  private String password;
+
   @ColumnInfo(name = "DOB")
   private Date DOB;
 
@@ -24,8 +27,16 @@ public class User {
   @ColumnInfo(name = "Phone")
   private String phone;
 
-  @ColumnInfo(name = "Adress")
+  @ColumnInfo(name = "Address")
   private String address;
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
   public int getUserId() {
     return userId;
@@ -74,4 +85,18 @@ public class User {
   public void setAddress(String address) {
     this.address = address;
   }
+
+
+
+
+  public static User login(String username , String password) {
+    //todo login logic
+    User currentUser = new User();
+    currentUser.setUsername(username);
+    currentUser.setPassword(password);
+
+    return currentUser;
+  }
 }
+
+

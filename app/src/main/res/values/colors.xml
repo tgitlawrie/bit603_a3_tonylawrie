@@ -10,4 +10,5 @@
 
     <color name="button_grey">#767676</color>
     <color name="error_text">#D50000</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

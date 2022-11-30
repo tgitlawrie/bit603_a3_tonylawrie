@@ -10,6 +10,10 @@ import java.util.Random;
 
 @Entity(tableName = "Inventory")
 public class Inventory {
+  //declared static so this can be used in add item menu
+  public static String[] types = {"biscuit", "cookie", "cake", "ingredient", "other"};
+
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "ItemID")
   private int itemID;
@@ -60,7 +64,6 @@ public class Inventory {
   // works through preset item array, assign random type and random quantity
   public static List<Inventory> getSampleData(){
     List<Inventory> sample = new ArrayList<>();
-    String[] types = {"biscuit", "cookie", "cake", "ingredient", "other"}; //TODO extract this out for consistency
     String[] items = {"flour","pound cake","baking soda","apple muffin","chocolate chip","macaroon","custard slice","milk","eggs",
       "cocoa","blueberry muffin","salt","chocolate brownie","tracking cookie","cheese cake","carrot cake","mixed berries","sugar","shortbread","cream"};
 
