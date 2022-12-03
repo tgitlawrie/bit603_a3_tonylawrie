@@ -19,7 +19,7 @@ public class User {
   private String password;
 
   @ColumnInfo(name = "DOB")
-  private Date DOB;
+  private String DOB;
 
   @ColumnInfo(name = "EmpNumber")
   private int empNumber;
@@ -54,11 +54,11 @@ public class User {
     this.username = username;
   }
 
-  public Date getDOB() {
+  public String getDOB() {
     return DOB;
   }
 
-  public void setDOB(Date DOB) {
+  public void setDOB(String DOB) {
     this.DOB = DOB;
   }
 

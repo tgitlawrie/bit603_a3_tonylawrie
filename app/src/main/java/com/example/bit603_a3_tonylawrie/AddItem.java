@@ -82,7 +82,7 @@ public class AddItem extends AppCompatActivity {
     });
   }
 
-  private boolean validated(String item, Object newQauntity) {
+  private boolean validated(String item, Object newQuantity) {
     // check item has been entered or exists
     if (item == null || item.equals("")) {
       errorMsg = "Please enter an item name";
@@ -91,7 +91,7 @@ public class AddItem extends AppCompatActivity {
 
     // check quantity can be parsed to integer
     try {
-      Integer.parseInt(newQauntity.toString());
+      Integer.parseInt(newQuantity.toString());
     } catch (Exception e) {
       errorMsg = "Enter valid Quantity";
       return false;
@@ -108,7 +108,7 @@ public class AddItem extends AppCompatActivity {
 
 
     // keyboard doesnt allow negative values, but just incase
-    if (Integer.parseInt(newQauntity.toString()) <= 0) {
+    if (Integer.parseInt(newQuantity.toString()) <= 0) {
       errorMsg = "Please enter a valid quantity";
       return false;
     }

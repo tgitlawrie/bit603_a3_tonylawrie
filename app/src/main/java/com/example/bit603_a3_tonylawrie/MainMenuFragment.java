@@ -52,8 +52,8 @@ public class MainMenuFragment extends Fragment {
       } else if (item.getItemId() == R.id.add_item) {
         startActivity(new Intent(getActivity(), AddItem.class));
       } else if (item.getItemId() == R.id.admin) {
-        startActivity(new Intent(getActivity(),ManageUsers.class));
-      }else if (item.getItemId() == R.id.inventory) {
+        startActivity(new Intent(getActivity(), ManageUsers.class));
+      } else if (item.getItemId() == R.id.inventory) {
         startActivity(new Intent(getActivity(), ShowInventory.class));
       }
       return true;
@@ -66,18 +66,14 @@ public class MainMenuFragment extends Fragment {
     setHasOptionsMenu(true);
   }
 
+  // when menu is drawn, check if admin is logged in and enable the admin panel
   @Override
   public void onPrepareOptionsMenu(@NonNull Menu menu) {
     super.onPrepareOptionsMenu(menu);
-    Log.d(TAG, "onPrepareOptionsMenu: called");
-    if(Objects.equals(MainActivity.loggedUser.getUsername(), MainActivity.admin.getUsername())){
+    if (Objects.equals(MainActivity.loggedUser.getUsername(), MainActivity.admin.getUsername())) {
       MenuNavigationView.getMenu().findItem(R.id.admin).setEnabled(true);
-      Log.d(TAG, "onPrepareOptionsMenu: if statement");
     }
-
-
   }
-
 
 
   private void logout() {
