@@ -93,6 +93,7 @@ public class AddUser extends AppCompatActivity {
   }// end of class
 
   private void addUser(User user) {
+    //TODO clear fields after adding
     String userDetails = user.getUsername() + "\r\n"
             + "D.O.B: " + user.getDOB() + "\r\n"
             + "Employee #: " + user.getEmpNumber() + "\r\n"

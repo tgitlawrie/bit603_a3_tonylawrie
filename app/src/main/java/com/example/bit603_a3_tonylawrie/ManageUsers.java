@@ -23,11 +23,17 @@ public class ManageUsers extends AppCompatActivity {
     setContentView(R.layout.activity_manage_users);
 
     addUser = findViewById(R.id.users_add_btn);
-    viewUsers = findViewById(R.id.users_view_btn); //TODO
+    viewUsers = findViewById(R.id.users_view_btn);
     removeUser = findViewById(R.id.users_remove_btn); //TODO
 
     addUser.setOnClickListener(view -> {
       startActivity(new Intent(this, AddUser.class));
+    });
+    viewUsers.setOnClickListener(view -> {
+      startActivity(new Intent(this, ViewUsers.class));
+    });
+    removeUser.setOnClickListener(view -> {
+      startActivity(new Intent(this, RemoveUser.class));
     });
   }
 }

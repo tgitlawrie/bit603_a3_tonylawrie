@@ -14,14 +14,26 @@ public interface InventoryDao {
   @Query("SELECT * FROM User")
   List<User> getUsers();
 
+  @Query("SELECT username FROM User")
+  List<String> getUsernames();
+
+  @Query("SELECT * FROM User WHERE username LIKE '%' || :search || '%'")
+  List<User> searchUsers(String search);
+
+  @Query("SELECT * FROM User WHERE username = :user")
+  User getUser(String user);
+
   @Insert
   void addItem(Inventory item); // maybe needs to be Inventory inventory
 
   @Insert
   void addUser(User user);
 
+  @Query("DELETE FROM user WHERE username = :user")
+  void deleteUserByName(String user);
 
   //WARNING for development purposes only.
   @Query("DELETE FROM Inventory")
   public void resetInventory();
+
 }
