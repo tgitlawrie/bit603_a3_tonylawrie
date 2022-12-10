@@ -77,8 +77,8 @@ public class Inventory {
       randomItem.setType(types[randType]);
 
       // add random number between 0 and 30
-      int randQauntity = new Random().nextInt(31);
-      randomItem.setQuantity(randQauntity);
+      int randQuantity = new Random().nextInt(31);
+      randomItem.setQuantity(randQuantity);
 
       sample.add(randomItem);
     }

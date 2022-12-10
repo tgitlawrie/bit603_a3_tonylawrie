@@ -14,8 +14,8 @@ import java.util.List;
 
 public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
   private static final String TAG = "adapter";
-  private LayoutInflater layoutInflater;
-  private List<User> userData;
+  private final LayoutInflater layoutInflater;
+  private final List<User> userData;
 
   userAdapter(Context context, List<User> userData) {
     this.layoutInflater = LayoutInflater.from(context);
@@ -51,7 +51,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
     return userData.size();
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  public static class ViewHolder extends RecyclerView.ViewHolder {
 
     TextView empNum, username, Dob, phone, address;
 

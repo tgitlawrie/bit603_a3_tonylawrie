@@ -4,10 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 @Entity(tableName = "User")
 public class User {
   @PrimaryKey(autoGenerate = true)

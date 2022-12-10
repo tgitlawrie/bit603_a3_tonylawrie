@@ -1,6 +1,5 @@
 package com.example.bit603_a3_tonylawrie;
 
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -16,10 +15,7 @@ public interface InventoryDao {
 
   @Query("SELECT username FROM User")
   List<String> getUsernames();
-
-  @Query("SELECT * FROM User WHERE username LIKE '%' || :search || '%'")
-  List<User> searchUsers(String search);
-
+  
   @Query("SELECT * FROM User WHERE username = :user")
   User getUser(String user);
 
@@ -34,6 +30,6 @@ public interface InventoryDao {
 
   //WARNING for development purposes only.
   @Query("DELETE FROM Inventory")
-  public void resetInventory();
+  void resetInventory();
 
 }

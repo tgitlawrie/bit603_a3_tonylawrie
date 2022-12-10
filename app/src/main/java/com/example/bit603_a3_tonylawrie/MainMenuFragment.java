@@ -9,23 +9,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-import java.util.Objects;
 
 public class MainMenuFragment extends Fragment {
   BottomNavigationView MenuNavigationView;
-  private static final String TAG = "menu";
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +54,7 @@ public class MainMenuFragment extends Fragment {
   }
 
   @Override
-  public void onAttach(Context context) {
+  public void onAttach(@NonNull Context context) {
     super.onAttach(context);
     setHasOptionsMenu(true);
   }
