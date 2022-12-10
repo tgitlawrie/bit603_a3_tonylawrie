@@ -70,7 +70,7 @@ public class MainMenuFragment extends Fragment {
   @Override
   public void onPrepareOptionsMenu(@NonNull Menu menu) {
     super.onPrepareOptionsMenu(menu);
-    if (Objects.equals(MainActivity.loggedUser.getUsername(), MainActivity.admin.getUsername())) {
+    if (MainActivity.isAdmin) {
       MenuNavigationView.getMenu().findItem(R.id.admin).setEnabled(true);
     }
   }

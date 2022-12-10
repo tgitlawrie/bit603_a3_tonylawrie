@@ -10,14 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-  private static final String TAG = "Login";
+  private static final String TAG = "login";
 
   public static InventoryDb inventoryDb; // init db
   public static final User admin = new User();
-  public static User loggedUser;
+  public static boolean isAdmin = false;
+
   Button loginBtn;
   EditText usernameInput, passwordInput;
   TextView errorText;
@@ -25,18 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    overridePendingTransition(0, 0); // remove terrible animation on load
     super.onCreate(savedInstanceState);
-    overridePendingTransition(0,0); // remove terrible animation on load
-    if(getSupportActionBar() != null) {
+    if (getSupportActionBar() != null) {
       getSupportActionBar().hide(); //hide the action bar so it doesn't screw with layout
     }
     setContentView(R.layout.activity_main);
-
     // assign database to inventory object
-    inventoryDb = Room.databaseBuilder(getApplicationContext(),InventoryDb.class,"inventory")
+    inventoryDb = Room.databaseBuilder(getApplicationContext(), InventoryDb.class, "inventory")
             .allowMainThreadQueries().build();
 
-    //hardcoded admin account
+    //hardcoded admin account, used User object for consistency
     admin.setUsername("Admin");
     admin.setPassword("CookieManagement84");
 
@@ -48,23 +47,35 @@ public class MainActivity extends AppCompatActivity {
     errorText = findViewById(R.id.loginErrorText);
 
     loginBtn.setOnClickListener(view -> {
+      errorText.setText(""); // clear the text
       String userName = usernameInput.getText().toString();
       String password = passwordInput.getText().toString();
 
-      loggedUser = User.login(userName, password);
+      User currentUser = MainActivity.inventoryDb.inventoryDao().getUser(userName);
+      Log.d(TAG, "onCreate: " + currentUser);
+      //if admin go to manage users activity
+      // else if username and password match from db go to inventory
+      // else display error
+      if (userName.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
+        isAdmin = true;
+        startActivity(new Intent(getApplicationContext(), ManageUsers.class));
+        overridePendingTransition(0, 0); // remove terrible animation on load
+      }
 
-      // if admin go to manage users else go to inventory
-      Log.d(TAG, "Logged in user: " + loggedUser.getUsername() + " ");
-      Log.d(TAG, "admin: " + admin.getUsername());
-      if(Objects.equals(loggedUser.getUsername(), admin.getUsername())){
-        startActivity(new Intent(getApplicationContext(),ManageUsers.class));
-        overridePendingTransition(0,0);
+      if (!(currentUser == null)){
+        if (userName.equals(currentUser.getUsername()) && password.equals(currentUser.getPassword())) {
+          isAdmin = false;
+          startActivity(new Intent(getApplicationContext(), ShowInventory.class));
+          overridePendingTransition(0, 0); // remove terrible animation on load
+        } else {
+          // generic message for both username and password for added security,
+          // if error message reads username incorrect this gives the user enough information to try guessing.
+          errorText.setText(R.string.login_error);
+          passwordInput.setText("");
+        }
       }else{
-        // if standard user go to inventory
-        startActivity(new Intent(getApplicationContext(),ShowInventory.class));
-        overridePendingTransition(0,0);
+        errorText.setText(R.string.login_error);
       }
     });
-
   }
 }

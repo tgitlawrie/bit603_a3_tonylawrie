@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(tableName = "User")
 public class User {
@@ -86,17 +88,6 @@ public class User {
     this.address = address;
   }
 
-
-
-
-  public static User login(String username , String password) {
-    //todo login logic
-    User currentUser = new User();
-    currentUser.setUsername(username);
-    currentUser.setPassword(password);
-
-    return currentUser;
-  }
 }
 
 

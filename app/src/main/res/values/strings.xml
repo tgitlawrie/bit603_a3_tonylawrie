@@ -50,6 +50,7 @@
     <string name="add">Add</string>
     <string name="search_username">Search Username</string>
     <string name="remove">Remove</string>
+    <string name="login_error">Incorrect username or password</string>
 
     <string-array name="item_types">
         <item>biscuit</item>

@@ -15,7 +15,7 @@ public class ManageUsers extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    overridePendingTransition(0,0);
+    overridePendingTransition(0, 0); // remove terrible animation on load
     super.onCreate(savedInstanceState);
     if(getSupportActionBar() != null) {
       getSupportActionBar().hide(); //hide the action bar so it doesn't screw with layout

@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ShowInventory extends AppCompatActivity {
   private static final String TAG = "inventory";
