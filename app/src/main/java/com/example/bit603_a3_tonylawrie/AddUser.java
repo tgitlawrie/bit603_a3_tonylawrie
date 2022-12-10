@@ -12,16 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddUser extends AppCompatActivity {
-  private static final String TAG = "addUser";
   private static String errorMsg;
   EditText
           userNameInput,
@@ -58,9 +53,7 @@ public class AddUser extends AppCompatActivity {
 
     // event listener for date picker
     // onclick listener for item type
-    DoBInput.setOnClickListener(view -> {
-      callDoBPicker();
-    });
+    DoBInput.setOnClickListener(view -> callDoBPicker());
     // on focus change listener for item type, makes it more responsive
     DoBInput.setOnFocusChangeListener((view, b) -> {
       if (b) {
@@ -174,7 +167,7 @@ public class AddUser extends AppCompatActivity {
       errorMsg = "Please enter an employee number";
       return false;
     }
-    // keyboard doesnt allow negative values, but just incase
+    // keyboard doesn't allow negative values, but just in-case
     if (Integer.parseInt(empNum) <= 0) {
       errorMsg = "Employee number must be positive";
       return false;

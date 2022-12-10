@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.os.Bundle;
 
 import android.text.InputType;
-import android.util.Log;
+
 
 import android.view.Gravity;
 import android.view.View;
@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
 
 
 public class AddItem extends AppCompatActivity {
-  private final String TAG = "Add Item";
 
   TextView errorMsgText;
   EditText itemName, itemType, quantity;
@@ -50,9 +49,7 @@ public class AddItem extends AppCompatActivity {
 
 
     // onclick listener for item type
-    itemType.setOnClickListener(view -> {
-      callItemDialog();
-    });
+    itemType.setOnClickListener(view -> callItemDialog());
     // on focus change listener for item type, makes it more responsive
     itemType.setOnFocusChangeListener((view, b) -> {
       if (b) {
@@ -107,7 +104,7 @@ public class AddItem extends AppCompatActivity {
     }
 
 
-    // keyboard doesnt allow negative values, but just incase
+    // keyboard doesn't allow negative values, but just in-case
     if (Integer.parseInt(newQuantity.toString()) <= 0) {
       errorMsg = "Please enter a valid quantity";
       return false;
@@ -119,9 +116,7 @@ public class AddItem extends AppCompatActivity {
   private void callItemDialog() {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle(R.string.item_alert_title)
-            .setItems(Inventory.types, (dialogInterface, i) -> {
-              itemType.setText(Inventory.types[i]);
-            });
+            .setItems(Inventory.types, (dialogInterface, i) -> itemType.setText(Inventory.types[i]));
     builder.create().show();
   }
 
