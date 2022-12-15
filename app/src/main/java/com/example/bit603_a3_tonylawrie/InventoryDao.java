@@ -32,4 +32,6 @@ public interface InventoryDao {
   @Query("DELETE FROM Inventory")
   void resetInventory();
 
+  @Query("SELECT * FROM User WHERE EmpNumber = :num")
+  User getUserByEmpNum(int num);
 }

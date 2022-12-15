@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
       // else display error
       if (userName.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
         isAdmin = true;
+        overridePendingTransition(0, 0); // remove terrible animation on load
         startActivity(new Intent(getApplicationContext(), ManageUsers.class));
         overridePendingTransition(0, 0); // remove terrible animation on load
       }
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
       if (!(currentUser == null)){
         if (userName.equals(currentUser.getUsername()) && password.equals(currentUser.getPassword())) {
           isAdmin = false;
+          overridePendingTransition(0, 0); // remove terrible animation on load
           startActivity(new Intent(getApplicationContext(), ShowInventory.class));
           overridePendingTransition(0, 0); // remove terrible animation on load
         } else {

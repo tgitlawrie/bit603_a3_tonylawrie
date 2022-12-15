@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Gravity;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -86,7 +87,6 @@ public class AddUser extends AppCompatActivity {
   }// end of class
 
   private void addUser(User user) {
-    //TODO clear fields after adding
     String userDetails = user.getUsername() + "\r\n"
             + "D.O.B: " + user.getDOB() + "\r\n"
             + "Employee #: " + user.getEmpNumber() + "\r\n"
@@ -95,20 +95,31 @@ public class AddUser extends AppCompatActivity {
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Create User")
-            .setMessage("Are you sure you want to create the following user?\r\n" + userDetails);
-    builder.setNegativeButton("Cancel", null);
-    builder.setPositiveButton("Create", (dialogInterface, i) -> {
-      MainActivity.inventoryDb.inventoryDao().addUser(user); // insert item on add click
+            .setMessage("Are you sure you want to create the following user?\r\n" + userDetails)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Create", (dialogInterface, i) -> {
+              MainActivity.inventoryDb.inventoryDao().addUser(user); // insert item on add click
 
-      Toast toast = Toast.makeText(this, user.getUsername() + "s account has been added!", Toast.LENGTH_SHORT);
-      toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40);
-      toast.show();
-    });
+              clearFields();
+              Toast toast = Toast.makeText(this, user.getUsername() + "s account has been added!", Toast.LENGTH_SHORT);
+              toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40);
+              toast.show();
+            });
     builder.create().show();
   }
 
+  private void clearFields() {
+    //clears all the fields ready for next input
+    userNameInput.setText("");
+    passwordInput.setText("");
+    DoBInput.setText("");
+    empNumberInput.setText("");
+    phoneInput.setText("");
+    addressInput.setText("");
+  }
+
   //  create a user object from the params
-  private User createUser(String userName, String password, String doB, String empNum, String phone, String address) {
+  static User createUser(String userName, String password, String doB, String empNum, String phone, String address) {
     User newUser = new User();
 
     newUser.setUsername(userName.trim().toLowerCase());
@@ -121,7 +132,7 @@ public class AddUser extends AppCompatActivity {
     return newUser;
   }
 
-  private boolean isValid(String userName, String password, String doB, String empNum, String phone, String address) {
+  static boolean isValid(String userName, String password, String doB, String empNum, String phone, String address) {
     Pattern p = Pattern.compile("[^A-Za-z0-9 ]"); // pattern to check for special characters
 
     //username and address validations
@@ -140,8 +151,6 @@ public class AddUser extends AppCompatActivity {
       errorMsg = "Username cannot contain special characters";
       return false;
     }
-
-    //todo check if username exists in db
 
     //password validations
     if (password == null || password.equals("")) {
@@ -172,17 +181,6 @@ public class AddUser extends AppCompatActivity {
       errorMsg = "Employee number must be positive";
       return false;
     }
-    //todo check if emp number exists in db
-
-    // phone number validations
-    if (phone == null || phone.equals("")) {
-      errorMsg = "Please enter a contact number";
-      return false;
-    }
-    if (!Patterns.PHONE.matcher(phone).matches()) {
-      errorMsg = "Phone number must be 6-10 numbers and contain numbers only: 123 456 789";
-      return false;
-    }
 
     //check address has been entered
     if (address.equals("")) {
@@ -193,6 +191,30 @@ public class AddUser extends AppCompatActivity {
     check = m.find();
     if (check) {
       errorMsg = "Address cannot contain special characters";
+      return false;
+    }
+
+    // phone number validations
+    if (phone == null || phone.equals("")) {
+      errorMsg = "Please enter a contact number";
+      return false;
+    }
+    System.out.println(phone);
+    if (!Patterns.PHONE.matcher(phone).matches()) {
+      errorMsg = "Please enter a valid phone number";
+      return false;
+    }
+
+    //check if username exists in db needs to be done last so testing doesnt break
+    if (MainActivity.inventoryDb.inventoryDao().getUser(userName) != null) {
+      errorMsg = "a user  with that name already exists";
+      return false;
+    }
+
+    //check if emp number exists in db
+    //must be done last so testing doesnt break
+    if (MainActivity.inventoryDb.inventoryDao().getUserByEmpNum(Integer.parseInt(empNum)) != null) {
+      errorMsg = "That employee number has already been assigned";
       return false;
     }
 

@@ -30,7 +30,7 @@ public class AddItem extends AppCompatActivity {
   EditText itemName, itemType, quantity;
   ImageButton addBtn;
 
-  private String errorMsg = "";
+  private static String errorMsg = "";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class AddItem extends AppCompatActivity {
     });
   }
 
-  private boolean validated(String item, Object newQuantity) {
+  static boolean validated(String item, Object newQuantity) {
     // check item has been entered or exists
     if (item == null || item.equals("")) {
       errorMsg = "Please enter an item name";
