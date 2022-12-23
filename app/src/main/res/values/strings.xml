@@ -20,23 +20,15 @@
     <string name="Next">Next</string>
 
     <!--    inventory-->
-    <string name="th_item">Item</string>
-    <string name="th_type">Type</string>
-    <string name="th_quantity">Quantity</string>
     <string name="admin_menu">Admin</string>
     <string name="inventory_title">Inventory</string>
     <string name="empty_inventory">Inventory is empty</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_item_title">Add Item</string>
     <string name="item_name">Item Name</string>
     <string name="quantity">Quantity</string>
-    <string name="add_item_button">Add item button</string>
     <string name="item_alert_title">Pick Item Type</string>
     <string name="item_type_hint">Item Type</string>
     <string name="add_button_description">ADD Button</string>
-    <string name="add_item_message">Are you sure you would like to add the following item:</string>
-    <string name="add_btn">Add to inventory</string>
-    <string name="quantity_parse_error">Quantity Must be a number</string>
     <string name="user_management_title">User Management</string>
     <string name="view_users">View Users</string>
     <string name="add_user">Add User</string>
@@ -51,14 +43,6 @@
     <string name="search_username">Search Username</string>
     <string name="remove">Remove</string>
     <string name="login_error">Incorrect username or password</string>
-
-    <string-array name="item_types">
-        <item>biscuit</item>
-        <item>cookie</item>
-        <item>cake</item>
-        <item>ingredient</item>
-        <item>other</item>
-    </string-array>
 
 
 </resources>

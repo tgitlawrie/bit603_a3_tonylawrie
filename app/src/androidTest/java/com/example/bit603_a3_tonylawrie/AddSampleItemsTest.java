@@ -2,7 +2,6 @@ package com.example.bit603_a3_tonylawrie;
 
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
@@ -164,18 +163,6 @@ public class AddSampleItemsTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-
-    ViewInteraction textView = onView(
-            allOf(withId(R.id.itemCountText), withText("Items: 20"),
-                    withParent(withParent(withId(android.R.id.content))),
-                    isDisplayed()));
-    textView.check(matches(withText("Items: 20")));
-
-    ViewInteraction textView2 = onView(
-            allOf(withId(R.id.page_counter), withText("1/4"),
-                    withParent(withParent(withId(android.R.id.content))),
-                    isDisplayed()));
-    textView2.check(matches(withText("1/4")));
 
     ViewInteraction bottomNavigationItemView4 = onView(
             allOf(withId(R.id.logout), withContentDescription("Logout"),

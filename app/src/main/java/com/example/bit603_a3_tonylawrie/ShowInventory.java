@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -98,7 +99,9 @@ public class ShowInventory extends AppCompatActivity {
       String item;
       String type;
       String quantity;
-      Spanned outString; //using Html.fromHtml to format the text nicely
+      Spanned outString = null; //using Html.fromHtml to format the text nicely
+
+      int orientation = getResources().getConfiguration().orientation; // check screen orientation
 
       for (int i = (page - 1) * pageSize; i < page * pageSize; i++) {
         if (i < itemCount && i >= 0) {
@@ -106,7 +109,14 @@ public class ShowInventory extends AppCompatActivity {
           type = inventory.get(i).getType();
           quantity = String.valueOf(inventory.get(i).getQuantity());
 
-          outString = Html.fromHtml("<b>"+item + "</b><br>" + "" + type + "&emsp;Quantity: " + quantity + "<br><br>");
+          if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //portrait orientation requires line breaks
+            outString = Html.fromHtml("<b>"+item + "</b><br>" + "" + type + "&emsp;Quantity: " + quantity + "<br><br>");
+          } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            outString = Html.fromHtml("<b>"+item + "</b>&emsp;" + "" + type + "&emsp;Quantity: " + quantity + "<br><br>");
+          }
+
+
           listText.append(outString);
         }
       }

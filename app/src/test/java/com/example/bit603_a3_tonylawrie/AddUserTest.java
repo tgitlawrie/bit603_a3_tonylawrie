@@ -1,8 +1,7 @@
 package com.example.bit603_a3_tonylawrie;
 
-import static org.junit.Assert.*;
 
-import android.util.Log;
+
 
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;

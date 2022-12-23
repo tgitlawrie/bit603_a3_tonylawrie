@@ -205,14 +205,14 @@ public class AddUser extends AppCompatActivity {
       return false;
     }
 
-    //check if username exists in db needs to be done last so testing doesnt break
+    //check if username exists in db needs to be done last so testing doesn't break
     if (MainActivity.inventoryDb.inventoryDao().getUser(userName) != null) {
       errorMsg = "a user  with that name already exists";
       return false;
     }
 
     //check if emp number exists in db
-    //must be done last so testing doesnt break
+    //must be done last so testing doesn't break
     if (MainActivity.inventoryDb.inventoryDao().getUserByEmpNum(Integer.parseInt(empNum)) != null) {
       errorMsg = "That employee number has already been assigned";
       return false;
